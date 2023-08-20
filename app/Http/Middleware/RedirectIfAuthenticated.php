@@ -1,0 +1,35 @@
+<?php
+
+namespace App\Http\Middleware;
+
+use App\Providers\RouteServiceProvider;
+use Closure;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
+
+class RedirectIfAuthenticated
+{
+    /**
+     * Handle an incoming request.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param  \Closure(\Illuminate\Http\Request): (Response|RedirectResponse)  $next
+     * @param  string|null  ...$guards
+     * @return Response|RedirectResponse
+     */
+    public function handle($request, Closure $next){
+
+        if (auth('web')->check()){
+            return redirect(RouteServiceProvider::HOME);
+        }
+
+        if (auth('admin')->check()){
+            return redirect(RouteServiceProvider::ADMIN);
+        }
+
+
+       return $next($request);
+    }
+}
