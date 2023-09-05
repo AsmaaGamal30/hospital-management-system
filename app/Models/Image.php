@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Image extends Model
 {
+    protected $guarded = [];
     use HasFactory;
     /**
      * Get the parent imageable model.
